@@ -1,0 +1,2 @@
+# MachineLearning
+Implementation of various machine learning algorithms in python. Main resources used are Elements of Statistical learning (KCL) lecture notes and Pattern Recognition and machine learning book by Bishop.
