@@ -25,9 +25,11 @@ class LogisticRegression(Classification):
         where       H = ∇∇E(w) = X.T•R•X
         and         ∇E(w) = X.T•(y - t)
 
-        :param X:
-        :param t:
-        :return:
+        :param X: array of (n_samples, n_features)
+                  independent variables
+        :param t: array of (n_sample, n_targets)
+                  target variables
+        :return: self
         '''
         X = convert_array(X, t)
 
@@ -57,6 +59,7 @@ class LogisticRegression(Classification):
             if np.allclose(w, w_i):
                 break
         self.w = w
+        return self
 
     def _sigmoid(self, a):
         return 1/(1 + np.exp(-a))

@@ -31,10 +31,11 @@ class MultipleLogisticRegression(Classification):
         where       H = ∇∇E(w) = X.T•R•X
         and         ∇E(w) = X.T•(y - t)
 
-        :param X:
-        :param t:
-        :param learning_rate:
-        :return:
+        :param X: array of (n_samples, n_features)
+                  independent variables
+        :param t: array of (n_sample, n_targets)
+                  target variables
+        :return: self
         '''
         X = convert_array(X)
         self.n_classes = np.max(t) + 1
@@ -48,6 +49,7 @@ class MultipleLogisticRegression(Classification):
             if np.allclose(W, W_prev):
                 break
         self.W = W
+        return self
 
     def _softmax(self, X):
         max_prob = np.max(X, axis=1).reshape((-1, 1))

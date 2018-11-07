@@ -20,5 +20,3 @@ def get_intercept(X, y):
     _intercept = y_offset - np.dot(X_offset, coef_.T)
 
     return coef_, _residues, rank_, singular_, _intercept
-
-

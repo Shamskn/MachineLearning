@@ -1,6 +1,5 @@
 from regression.regression import Regression
 import numpy as np
-
 from utils.prepare_inputs import check_X_y, convert_array
 
 
@@ -21,6 +20,13 @@ class BayesianRegression(Regression):
         self.sigma2 = None      #variance
 
     def fit(self, X, t):
+        '''
+        :param X: array of (n_samples, n_features)
+                  independent variables
+        :param t: array of (n_sample, n_targets)
+                  target variables
+        :return: self
+        '''
         X,t = check_X_y(X, t)
 
         S_N = np.linalg.inv(self.alpha * np.eye(np.size(X, 1)).T + self.beta * X.T @ X)
@@ -28,6 +34,10 @@ class BayesianRegression(Regression):
 
         self.covariance = S_N
         self.w = m_N
+
+        self._intercept = self.w[0]
+
+        return self
 
     def predict(self, X):
         X = convert_array(X)

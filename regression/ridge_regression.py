@@ -21,13 +21,18 @@ class RidgeRegression(Regression):
         Calculate the generalized inverse of a matrix using its
         singular-value decomposition (SVD)
 
-        :param X: independent variables
-        :param t: target variables
-        :return: None
+        :param X: array of (n_samples, n_features)
+                  independent variables
+        :param t: array of (n_sample, n_targets)
+                  target variables
+        :return: self
         '''
         X, t = check_X_y(X, t)
-        self.w = np.linalg.pinv(X) @ t
-        self.variance = np.mean(np.square(X @ self.w - t))
+
+        id_mtrx = np.eye(np.size(X, 1))
+        self.w = np.linalg.solve(self.alpha * id_mtrx + X.T @ X, X.T @ t)
+        self._intercept = self.w[0]
+
         return self
 
 
@@ -36,5 +41,4 @@ class RidgeRegression(Regression):
         X = convert_array(X)
 
         y = X @ self.w
-        self.y_std = np.sqrt(self.variance) + np.zeros_like(y)
         return y
