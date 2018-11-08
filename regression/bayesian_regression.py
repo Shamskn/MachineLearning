@@ -12,8 +12,8 @@ class BayesianRegression(Regression):
     where,      m_N = beta * S_N • X.T •t
         and     S_N ^(-1) = alpha*Ident + beta * X.T • X
     '''
-    def __init__(self, fit_interept=True, alpha=0.1, beta=9.0):
-        super(BayesianRegression, self).__init__(fit_intercept=fit_interept)
+    def __init__(self, fit_intercept=False,alpha=0.1, beta=9.0):
+        super(BayesianRegression, self).__init__(fit_intercept=fit_intercept)
         self.alpha = alpha
         self.beta = beta
         self.mu = None      #mean

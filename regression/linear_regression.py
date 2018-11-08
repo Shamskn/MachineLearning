@@ -31,10 +31,13 @@ class LinearRegression(Regression):
         :return: self
         '''
         X, t = check_X_y(X, t)
+        if self.fit_intercept:
+            X = np.hstack((np.ones(X.shape[0]).reshape(-1, 1), X))
+
         self.w = np.linalg.pinv(X) @ t
 
         self.variance = np.mean(np.square(X @ self.w - t))
-        self._intercept = self.w[0]
+        self._intercept = self.w[0] if self.fit_intercept else 0
 
         return self
 
@@ -42,6 +45,6 @@ class LinearRegression(Regression):
 
         X = convert_array(X)
 
-        y = X @ self.w
+        y = self.w[0] + X @ self.w[1:] if self.fit_intercept else X @ self.w
         self.y_std = np.sqrt(self.variance) + np.zeros_like(y)
         return y

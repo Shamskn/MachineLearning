@@ -28,10 +28,12 @@ class RidgeRegression(Regression):
         :return: self
         '''
         X, t = check_X_y(X, t)
+        if self.fit_intercept:
+            X = np.hstack((np.ones(X.shape[0]).reshape(-1, 1), X))
 
         id_mtrx = np.eye(np.size(X, 1))
         self.w = np.linalg.solve(self.alpha * id_mtrx + X.T @ X, X.T @ t)
-        self._intercept = self.w[0]
+        self._intercept = self.w[0] if self.fit_intercept else 0
 
         return self
 
@@ -40,5 +42,5 @@ class RidgeRegression(Regression):
 
         X = convert_array(X)
 
-        y = X @ self.w
+        y = self.w[0] + X @ self.w[1:] if self.fit_intercept else X @ self.w
         return y
