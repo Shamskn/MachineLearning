@@ -19,7 +19,7 @@ class LinearRegression(Regression):
 
     def fit(self, X, t):
         '''
-        Compute the (Moore-Penrose) pseudo-inverse of a matrix.
+        Computes the (Moore-Penrose) pseudo-inverse of a matrix.
 
         Calculate the generalized inverse of a matrix using its
         singular-value decomposition (SVD)
@@ -34,6 +34,8 @@ class LinearRegression(Regression):
         if self.fit_intercept:
             X = np.hstack((np.ones(X.shape[0]).reshape(-1, 1), X))
 
+        # w = np.inv(X.T @ X) @ X.T @ t
+        # The first three terms computes to the pseudoinverse of X. We are computing that directly
         self.w = np.linalg.pinv(X) @ t
 
         self.variance = np.mean(np.square(X @ self.w - t))

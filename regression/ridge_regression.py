@@ -33,6 +33,7 @@ class RidgeRegression(Regression):
 
         id_mtrx = np.eye(np.size(X, 1))
         self.w = np.linalg.solve(self.alpha * id_mtrx + X.T @ X, X.T @ t)
+
         self._intercept = self.w[0] if self.fit_intercept else 0
 
         return self
