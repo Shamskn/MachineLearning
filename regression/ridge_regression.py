@@ -4,18 +4,19 @@ from regression.regression import Regression
 
 
 class RidgeRegression(Regression):
-    '''
+    """
     Regularisation technique is used to control the over-fitting. By adding a penalty term to the error function
     discourage the coefficients from reaching large values.
 
     This kinda shrinkage method with quadratic reguliser is called Ridge Regression.
-    '''
-    def __init__(self, fit_intercept=True, alpha = 1.0):
+    """
+
+    def __init__(self, fit_intercept=True, alpha=1.0):
         super(RidgeRegression, self).__init__(fit_intercept=fit_intercept)
         self.alpha = alpha
 
     def fit(self, X, t):
-        '''
+        """
         Compute the (Moore-Penrose) pseudo-inverse of a matrix.
 
         Calculate the generalized inverse of a matrix using its
@@ -26,7 +27,7 @@ class RidgeRegression(Regression):
         :param t: array of (n_sample, n_targets)
                   target variables
         :return: self
-        '''
+        """
         X, t = check_X_y(X, t)
         if self.fit_intercept:
             X = np.hstack((np.ones(X.shape[0]).reshape(-1, 1), X))
@@ -38,9 +39,7 @@ class RidgeRegression(Regression):
 
         return self
 
-
     def predict(self, X):
-
         X = convert_array(X)
 
         y = self.w[0] + X @ self.w[1:] if self.fit_intercept else X @ self.w

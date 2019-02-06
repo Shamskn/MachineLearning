@@ -1,9 +1,10 @@
-from classification.classification import Classification
-from utils.prepare_inputs import target_is_binary, check_X_y, convert_array
 import numpy as np
+from classification.classification import Classification
+from utils.prepare_inputs import target_is_binary, convert_array
+
 
 class LogisticRegression(Classification):
-    '''
+    """
     A logistic regression model is used to solve to two-class classification problems.
     The posterior probability is the logistic sigmoid acting on the linear function of feature
     vectors.
@@ -11,13 +12,14 @@ class LogisticRegression(Classification):
 
         where σ(a) =1/1 + exp(−a)
 
-    '''
+    """
+
     def __init__(self, fit_intercept=True, max_iter=100):
         super(LogisticRegression, self).__init__(fit_intercept=fit_intercept)
         self.max_iter = max_iter
 
     def fit(self, X, t):
-        '''
+        """
         Iterative reweighted least squares based on the Newton-Raphson optimisation technique.
 
                 w_new = w_old - H^(-1)•∇E(w)
@@ -30,7 +32,7 @@ class LogisticRegression(Classification):
         :param t: array of (n_sample, n_targets)
                   target variables
         :return: self
-        '''
+        """
         X = convert_array(X, t)
 
         if not target_is_binary(t):
@@ -62,7 +64,7 @@ class LogisticRegression(Classification):
         return self
 
     def _sigmoid(self, a):
-        return 1/(1 + np.exp(-a))
+        return 1 / (1 + np.exp(-a))
 
     def pred_prob(self, X):
         X = convert_array(X)

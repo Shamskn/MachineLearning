@@ -1,10 +1,10 @@
-from classification.classification import Classification
 import numpy as np
-from utils.prepare_inputs import check_X_y, convert_array
+from classification.classification import Classification
+from utils.prepare_inputs import convert_array
 
 
 class MultipleLogisticRegression(Classification):
-    '''
+    """
     A generative model for multiclass classification. The probability is given by the softmax transformation
 
             p(C_k|X) = y_k(X) = exp(a_k) / sum(exp(a_j)) ∀ j
@@ -16,14 +16,14 @@ class MultipleLogisticRegression(Classification):
 
             t_nk = (0, 1, 0 ,...0) where all elements are zero except for element k
     and T is an NxK matrix of target variables with elements t_nk
-    '''
+    """
 
     def __init__(self, fit_intercept=True, max_iter=100):
         super(MultipleLogisticRegression, self).__init__(fit_intercept=fit_intercept)
         self.max_iter = max_iter
 
     def fit(self, X, t, learning_rate=0.1):
-        '''
+        """
         Iterative reweighted least squares based on the Newton-Raphson optimisation technique.
 
                 w_new = w_old - H^(-1)•∇E(w)
@@ -31,12 +31,13 @@ class MultipleLogisticRegression(Classification):
         where       H = ∇∇E(w) = X.T•R•X
         and         ∇E(w) = X.T•(y - t)
 
+        :param learning_rate:
         :param X: array of (n_samples, n_features)
                   independent variables
         :param t: array of (n_sample, n_targets)
                   target variables
         :return: self
-        '''
+        """
         X = convert_array(X)
         self.n_classes = np.max(t) + 1
         T = np.eye(self.n_classes)[t.flatten()]

@@ -2,6 +2,7 @@ import unittest
 import numpy as np
 from utils import prepare_inputs
 
+
 class TestPrepareInputs(unittest.TestCase):
 
     def test_array_dim(self):
@@ -12,7 +13,7 @@ class TestPrepareInputs(unittest.TestCase):
 
     def test_array_type(self):
         # Check if arrays are converted to np.float64
-        X = prepare_inputs.convert_array([[1,2],[3,4]])
+        X = prepare_inputs.convert_array([[1, 2], [3, 4]])
         self.assertIsInstance(X, np.ndarray)
         self.assertTrue(X.dtype == np.float64)
 
@@ -25,7 +26,6 @@ class TestPrepareInputs(unittest.TestCase):
         self.assertFalse(prepare_inputs.target_is_binary(np.array([1, 0, 1, 3])))
         self.assertTrue(prepare_inputs.target_is_binary(np.array([1, 0, 1, 0])))
 
+
 if __name__ == '__main__':
     unittest.main()
-
-
