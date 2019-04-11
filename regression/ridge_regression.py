@@ -1,9 +1,9 @@
 import numpy as np
-from utils.prepare_inputs import check_X_y, convert_array
-from regression.regression import Regression
+from utils.prepare_inputs import check_X_y
+from regression.linear_regression import LinearRegression
 
 
-class RidgeRegression(Regression):
+class RidgeRegression(LinearRegression):
     """
     Regularisation technique is used to control the over-fitting. By adding a penalty term to the error function
     discourage the coefficients from reaching large values.
@@ -38,9 +38,11 @@ class RidgeRegression(Regression):
         self._intercept = self.w[0] if self.fit_intercept else 0
 
         return self
-
-    def predict(self, X):
-        X = convert_array(X)
-
-        y = self.w[0] + X @ self.w[1:] if self.fit_intercept else X @ self.w
-        return y
+    '''
+    Predict method is now inherited from Linear regression.
+    '''
+    # def predict(self, X):
+    #     X = convert_array(X)
+    #
+    #     y = self.w[0] + X @ self.w[1:] if self.fit_intercept else X @ self.w
+    #     return y
