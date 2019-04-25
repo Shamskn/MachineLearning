@@ -48,7 +48,7 @@ class LogisticRegression(Classification):
             grad_err = X.T @ (y - t)
 
             # Second derivative of the gradient gives us the Hessian;
-            # Where R is the NxN diagonal matrix with R_nn = y_n(1 - y_n)
+            # Where R is the NxN diagonal matric with R_nn = y_n(1 - y_n)
             R = np.diag((y * (1 - y)).ravel())
             H = X.T @ R @ X
 
